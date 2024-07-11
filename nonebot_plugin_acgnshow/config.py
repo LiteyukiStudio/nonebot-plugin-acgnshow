@@ -6,6 +6,6 @@ TEMPLATE_NAME = "template.html"
 BGIMAGE_PATH = RES_PATH / "bgimage"
 
 class ConfigModel(BaseModel):
-    pagesize: int = 8
+    acgnshow_pagesize: int = 8
 
 config: ConfigModel = get_plugin_config(ConfigModel)

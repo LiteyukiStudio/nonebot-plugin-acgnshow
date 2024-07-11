@@ -9,7 +9,7 @@ from nonebot_plugin_alconna import on_alconna
 from arclet.alconna import Alconna, Args
 from .config import RES_PATH, TEMPLATE_NAME, config
 from .util import *
-
+from .__init__ import __plugin_meta__
 showcmd = on_alconna(
     Alconna(
         "展览",
@@ -29,14 +29,14 @@ showcmd.shortcut(
 async def find_show(
     state: T_State, region: Optional[str] = None, page: Optional[int] = None, date: Optional[str] = None,
 ):
-    if not region: await showcmd.finish("未指定地区")
+    if not region: await showcmd.finish(__plugin_meta__.usage)
     if not page: page = 1
     if not date: date = ""
     regions_dict = get_regions_dict()
     regionid = regions_dict.get(region,None)
     if regionid == None: await showcmd.finish("未找到此地区") ; return
     #await showcmd.send("日期："+ date)
-    shows = get_shows_data(regionid,page=page,pagesize=config.pagesize)
+    shows = get_shows_data(regionid,page=page,pagesize=config.acgnshow_pagesize)
     # print(shows)
     template = {
         "shows":process_shows_data_to_template(shows),
