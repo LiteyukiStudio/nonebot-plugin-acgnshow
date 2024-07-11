@@ -23,11 +23,6 @@ adapters = [
     { name = "OneBot V11", module_name = "nonebot.adapters.onebot.v11" }
 ]
 
-[tool.poetry.dependencies]
-python = "^3.8"
-nonebot2 = { version = "^2.2.0", extras = ["fastapi"] }
-nonebot-plugin-alconna = ">=0.38.0,<1.0.0"
-
 
 [tool.pdm]
 distribution = true
