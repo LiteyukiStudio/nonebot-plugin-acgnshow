@@ -1,0 +1,43 @@
+[project]
+name = "nonebot-plugin-acgnshow"
+version = "0.1.0"
+description = "Nonebot2插件，从哔哩哔哩会员购获取简易展览数据"
+readme = "README.md"
+requires-python = "<4.0,>=3.8"
+authors = [
+    {name = "Asankilp", email = "asankilp@outlook.com"},
+]
+dependencies = [
+    "nonebot2>=2.2.0",
+    "nonebot-plugin-alconna>=0.48.0",
+    "nonebot-plugin-htmlrender>=0.3.2",
+    "jinja2>=3.1.4",
+
+
+]
+license = {text = "MIT"}
+
+[tool.nonebot]
+plugins = ["nonebot_plugin_acgnshow"]
+adapters = [
+    { name = "OneBot V11", module_name = "nonebot.adapters.onebot.v11" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+nonebot2 = { version = "^2.2.0", extras = ["fastapi"] }
+nonebot-plugin-alconna = ">=0.38.0,<1.0.0"
+
+
+[tool.pdm]
+distribution = true
+
+[tool.pdm.version]
+source = "file"
+path = "nonebot_plugin_acgnshow/__init__.py"
+
+[tool.pdm.build]
+includes = []
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
