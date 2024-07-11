@@ -1,5 +1,3 @@
-from nonebot import require, on_endswith
-from nonebot.adapters import satori
 from nonebot.adapters.onebot.v11 import MessageSegment
 from nonebot.typing import T_State
 from typing import Optional

@@ -1,6 +1,5 @@
 import json
 import requests
-from nonebot_plugin_htmlrender import template_to_pic
 from jinja2 import Template
 CITY_API_ROOT="https://show.bilibili.com/api/ticket/city/list?channel=3"
 SHOWS_API_ROOT="https://show.bilibili.com/api/ticket/project/listV2"
