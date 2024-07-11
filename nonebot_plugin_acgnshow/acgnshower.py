@@ -4,6 +4,7 @@ from typing import Optional
 from .acgnapis import *
 from nonebot_plugin_htmlrender import template_to_pic
 from nonebot_plugin_alconna import on_alconna
+from nonebot_plugin_alconna.uniseg import UniMessage
 from arclet.alconna import Alconna, Args
 from .config import RES_PATH, TEMPLATE_NAME, config
 from .util import *
@@ -27,12 +28,12 @@ showcmd.shortcut(
 async def find_show(
     state: T_State, region: Optional[str] = None, page: Optional[int] = None, date: Optional[str] = None,
 ):
-    if not region: await showcmd.finish(__plugin_meta__.usage)
+    if not region: await UniMessage(__plugin_meta__.usage).send() ; return
     if not page: page = 1
     if not date: date = ""
     regions_dict = get_regions_dict()
     regionid = regions_dict.get(region,None)
-    if regionid == None: await showcmd.finish("不支持此地区") ; return
+    if regionid == None: await UniMessage("不支持此地区").send() ; return
     #await showcmd.send("日期："+ date)
     shows = get_shows_data(regionid,page=page,pagesize=config.acgnshow_pagesize)
     # print(shows)
@@ -44,4 +45,4 @@ async def find_show(
     # print(pic)
     # a = Image.open(io.BytesIO(pic))
     # a.save("template2pic.png", format="PNG")
-    await showcmd.finish(MessageSegment.image(pic))
+    await UniMessage.image(pic).send()
