@@ -80,6 +80,7 @@ def process_shows_data_to_template(shows_data: dict):
             "name": name,
             "location": district_name + venue_name,
             "sale_flag": sale_flag,
+            "id": project_id,
             "price": price_low,
             "start_time": start_time, 
             "end_time": end_time, 

@@ -80,6 +80,13 @@
             top: 5px;
             right: 5px;
         }
+        .details .id {
+            color: black;
+            font-size: 10px;
+            position: absolute;
+            top: 20px;
+            right: 5px;
+        }
         .details .price {
             color: #FB7299;
             font-size: 10px;
@@ -126,6 +133,7 @@
                     </div>
                 </div>
                 <div class="sale_flag">{{ show.sale_flag }}</div>
+                <div class="id">ID:{{ show.id }}</div>
                 <div class="price">￥{{ show.price }}起</div>
                 <div class="wish">{{ show.wish }}人想去</div>
                 <div class="start-time">开始时间：{{ show.start_time }}</div>
