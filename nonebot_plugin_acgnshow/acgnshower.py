@@ -2,7 +2,7 @@ from nonebot.adapters.onebot.v11 import MessageSegment
 from nonebot.typing import T_State
 from typing import Optional
 from .acgnapis import *
-from nonebot_plugin_htmlrender import text_to_pic, template_to_pic
+from nonebot_plugin_htmlrender import template_to_pic
 from nonebot_plugin_alconna import on_alconna
 from arclet.alconna import Alconna, Args
 from .config import RES_PATH, TEMPLATE_NAME, config

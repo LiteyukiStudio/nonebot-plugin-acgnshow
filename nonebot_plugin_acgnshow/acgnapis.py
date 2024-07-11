@@ -1,6 +1,5 @@
 import json
 import requests
-from jinja2 import Template
 CITY_API_ROOT="https://show.bilibili.com/api/ticket/city/list?channel=3"
 SHOWS_API_ROOT="https://show.bilibili.com/api/ticket/project/listV2"
 HEADERS = {
@@ -93,6 +92,3 @@ def process_shows_data_to_template(shows_data: dict):
             })
         showlist.append(dicts)
     return showlist
-    template = Template(show_template)
-    rendered = template.render(exhibitions=showlist)
-    return rendered

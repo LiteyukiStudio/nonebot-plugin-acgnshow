@@ -3,7 +3,7 @@ name = "nonebot-plugin-acgnshow"
 version = "0.1.1"
 description = "Nonebot2插件，从哔哩哔哩会员购获取简易展览数据"
 readme = "README.md"
-requires-python = "<4.0,>=3.8"
+requires-python = "<4.0,>=3.9"
 authors = [
     {name = "Asankilp", email = "asankilp@outlook.com"},
 ]
@@ -11,6 +11,7 @@ dependencies = [
     "nonebot2>=2.2.0",
     "nonebot-plugin-alconna>=0.48.0",
     "nonebot-plugin-htmlrender>=0.3.2",
+    "nonebot-adapter-satori>=0.12",
     "jinja2>=3.1.4",
 
 
