@@ -1,4 +1,3 @@
-from nonebot.adapters.onebot.v11 import MessageSegment
 from nonebot.typing import T_State
 from typing import Optional
 from .acgnapis import *
@@ -37,11 +36,15 @@ async def find_show(
     #await showcmd.send("日期："+ date)
     shows = get_shows_data(regionid,page=page,pagesize=config.acgnshow_pagesize)
     # print(shows)
-    template = {
-        "shows":process_shows_data_to_template(shows),
-        "bgimage": choose_random_bgimage()
-        }
-    pic = await template_to_pic(RES_PATH,TEMPLATE_NAME,template)
+    try:
+        template = {
+            "shows":process_shows_data_to_template(shows),
+            "bgimage": choose_random_bgimage()
+            }
+        pic = await template_to_pic(RES_PATH,TEMPLATE_NAME,template)
+    except:
+        await UniMessage("发生错误").send()
+        return
     # print(pic)
     # a = Image.open(io.BytesIO(pic))
     # a.save("template2pic.png", format="PNG")
