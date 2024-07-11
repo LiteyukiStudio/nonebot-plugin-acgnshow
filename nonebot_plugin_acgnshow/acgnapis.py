@@ -59,9 +59,6 @@ def process_shows_data_to_text(shows_data: dict):
         text = f"名称：{name}\n举办地:{venue_name}\nid:{project_id}\nflag:{sale_flag}\n开始时间:{start_time}\n结束时间:{end_time}\n最低票价:{price_low}\n最高票价:{price_high}\n区名:{district_name}\n\n"
         showlist.append(text)
     return showlist
-def read_template_file(file_path):
-    with open(file_path, 'r', encoding='utf-8') as file:
-        return file.read()
 
 def process_shows_data_to_template(shows_data: dict):
     showlist = []
@@ -79,8 +76,7 @@ def process_shows_data_to_template(shows_data: dict):
         wish = i["wish"]
         cover = "https:" + i["cover"]
         if district_name == None : district_name = ""
-        dicts = {}
-        dicts.update({
+        dicts = {
             "name": name,
             "location": district_name + venue_name,
             "sale_flag": sale_flag,
@@ -89,6 +85,6 @@ def process_shows_data_to_template(shows_data: dict):
             "end_time": end_time, 
             "wish": wish,
             "image_url": cover
-            })
+            }
         showlist.append(dicts)
     return showlist

@@ -32,7 +32,7 @@ async def find_show(
     if not date: date = ""
     regions_dict = get_regions_dict()
     regionid = regions_dict.get(region,None)
-    if regionid == None: await showcmd.finish("未找到此地区") ; return
+    if regionid == None: await showcmd.finish("不支持此地区") ; return
     #await showcmd.send("日期："+ date)
     shows = get_shows_data(regionid,page=page,pagesize=config.acgnshow_pagesize)
     # print(shows)
