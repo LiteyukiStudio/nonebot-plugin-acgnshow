@@ -37,9 +37,11 @@ async def find_show(
     shows = get_shows_data(regionid,page=page,pagesize=config.acgnshow_pagesize)
     # print(shows)
     try:
+        showsdata = process_shows_data_to_template(shows)
         template = {
-            "shows":process_shows_data_to_template(shows),
-            "bgimage": choose_random_bgimage()
+            "shows": showsdata[0],
+            "bgimage": choose_random_bgimage(),
+            "global_data": showsdata[1]
             }
         pic = await template_to_pic(RES_PATH,TEMPLATE_NAME,template)
     except:

@@ -115,6 +115,41 @@
             bottom: 5px;
             right: 5px;
         }
+        .footer {
+            border: 1px solid black;
+            flex: 1;
+            padding-left: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            font-size: 10px;
+        }
+        .footer .designer {
+            text-align: center;
+            font-weight: bold;
+            padding: 5px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+        .footer .pages {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            font-size: 10px;
+        }
+        .footer .total_results {
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            font-size: 10px;
+        }
+        .footer .project_name {
+            position: relative;
+            font-size: 10px;
+            text-align: center;
+            color: rgb(50, 227, 227);
+        }
     </style>
 </head>
 <body>
@@ -141,8 +176,11 @@
             </div>
         </div>
         {% endfor %}
-        <div class="header">
-            Designed by Asankilp?
+        <div class="footer">
+            <div class="designer"> Designed by Asankilp? </div>
+            <div class="total_results">共 {{ global_data.total_results }} 个结果</div>
+            <div class="pages">{{ global_data.page }} / {{ global_data.total_pages }} 页</div>
+            <div class="project_name">nonebot-plugin-acgnshow</div>
         </div>
     </div>
 </body>

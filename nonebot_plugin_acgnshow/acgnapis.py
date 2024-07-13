@@ -46,7 +46,10 @@ def get_shows_data(region_id: int, page=1, pagesize=20):
     return shows_data
 def process_shows_data_to_text(shows_data: dict):
     showlist = []
-    for i in shows_data["data"]["result"]:
+    data = shows_data["data"]
+    total_pages = data["numPages"]
+    result = data["result"]
+    for i in result:
         name = i["project_name"]
         venue_name = i["venue_name"]
         project_id = i["project_id"]
@@ -62,8 +65,13 @@ def process_shows_data_to_text(shows_data: dict):
 
 def process_shows_data_to_template(shows_data: dict):
     showlist = []
+    data = shows_data["data"]
+    page = data["page"]
+    total_pages = data["numPages"]
+    total_results = data["total"]
+    result = data["result"]
     # show_template = read_template_file('/home/asankilp/LiteyukiBot/src/plugins/acgnshow/res/template.html')
-    for i in shows_data["data"]["result"]:
+    for i in result:
         name = i["project_name"]
         venue_name = i["venue_name"]
         project_id = i["project_id"]
@@ -76,7 +84,7 @@ def process_shows_data_to_template(shows_data: dict):
         wish = i["wish"]
         cover = "https:" + i["cover"]
         if district_name == None : district_name = ""
-        dicts = {
+        item_dict = {
             "name": name,
             "location": district_name + venue_name,
             "sale_flag": sale_flag,
@@ -85,7 +93,14 @@ def process_shows_data_to_template(shows_data: dict):
             "start_time": start_time, 
             "end_time": end_time, 
             "wish": wish,
-            "image_url": cover
+            "image_url": cover,
+            "page": page,
+            "total_pages": total_pages
             }
-        showlist.append(dicts)
-    return showlist
+        showlist.append(item_dict)
+    global_data_dict = {
+        "page": page,
+        "total_pages": total_pages,
+        "total_results": total_results
+    }
+    return [showlist, global_data_dict]
