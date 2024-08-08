@@ -1,5 +1,6 @@
 import json
 import requests
+from .util import *
 CITY_API_ROOT="https://show.bilibili.com/api/ticket/city/list?channel=3"
 SHOWS_API_ROOT="https://show.bilibili.com/api/ticket/project/listV2"
 HEADERS = {
@@ -54,7 +55,9 @@ def process_shows_data_to_text(shows_data: dict):
         venue_name = i["venue_name"]
         project_id = i["project_id"]
         sale_flag = i["sale_flag"]
-        start_time = i["start_time"]
+        #start_time = i["start_time"]
+        start_unix = i["start_unix"]
+        start_time = convert_timestamp(start_unix)
         end_time = i["end_time"]
         price_low = i["price_low"] / 100
         price_high = i["price_high"] / 100
@@ -76,7 +79,9 @@ def process_shows_data_to_template(shows_data: dict):
         venue_name = i["venue_name"]
         project_id = i["project_id"]
         sale_flag = i["sale_flag"]
-        start_time = i["start_time"]
+        #start_time = i["start_time"]
+        start_unix = i["start_unix"]
+        start_time = convert_timestamp(start_unix)
         end_time = i["end_time"]
         price_low = i["price_low"] / 100
         price_high = i["price_high"] / 100
@@ -84,6 +89,11 @@ def process_shows_data_to_template(shows_data: dict):
         wish = i["wish"]
         cover = "https:" + i["cover"]
         if district_name == None : district_name = ""
+        guests_list = i["guests"]
+        guests = ""
+        if guests_list != None:
+            for n in guests_list:
+                guests += n["name"] + ","
         item_dict = {
             "name": name,
             "location": district_name + venue_name,
@@ -94,6 +104,7 @@ def process_shows_data_to_template(shows_data: dict):
             "end_time": end_time, 
             "wish": wish,
             "image_url": cover,
+            "guests": guests,
             "page": page,
             "total_pages": total_pages
             }

@@ -11,7 +11,6 @@
         body {
             font-family: 'Source Han Sans', sans-serif;
             background-image: url('{{ bgimage }}');
-
         }
         .background {
             position: fixed;
@@ -19,7 +18,6 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /*background-image: url('{{ bgimage }}');*/
             background-size: cover;
             filter: blur(40%);
             z-index: -1;
@@ -53,7 +51,6 @@
             height: 200px;
             border: 1px solid black;
             text-align: center;
-            /*padding: 10px; */
             box-sizing: border-box;
         }
         .details {
@@ -61,17 +58,29 @@
             padding-left: 10px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: flex-start;
             position: relative;
             font-size: 10px;
         }
         .details .title {
             font-size: 10px;
             font-weight: bold;
+            margin-bottom: 5px;
         }
         .details .venue_name {
             font-size: 10px;
             font-weight: normal;
+            margin-bottom: 5px;
+        }
+        .details .guests {
+            font-size: 10px;
+            word-wrap: break-word;
+            white-space: pre-wrap; /* 自动换行 */
+            margin-bottom: 5px;
+        }
+        .details .placeholder {
+            font-size: 10px;
+            margin-bottom: 5px;
         }
         .details .sale_flag {
             color: red;
@@ -99,7 +108,7 @@
             color: gray;
             position: absolute;
             bottom: 5px;
-            left: 60px;          
+            left: 60px;
         }
         .details .start-time,
         .details .end-time {
@@ -161,12 +170,12 @@
                 <img src="{{ show.image_url }}" alt="Image" width="148" height="200">
             </div>
             <div class="details">
-                <div class="title">
-                    <div>{{ show.name }}</div>
-                    <div class="venue_name">
-                        <div>举办地点：{{ show.location }}</div>
-                    </div>
-                </div>
+                <div class="title">{{ show.name }}</div>
+                <div class="venue_name">举办地点：{{ show.location }}</div>
+                {% if show.guests != "" %}
+                <div class="guests">嘉宾：{{ show.guests }}</div>
+                {% endif %}
+                <div class="placeholder"></div>
                 <div class="sale_flag">{{ show.sale_flag }}</div>
                 <div class="id">ID:{{ show.id }}</div>
                 <div class="price">￥{{ show.price }}起</div>
