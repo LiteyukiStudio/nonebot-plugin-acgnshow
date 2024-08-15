@@ -15,7 +15,9 @@ usage = """命令格式：
 展览 福建 2
 福建展览 2
 全国展览
-海外展览"""
+海外展览
+
+※数据来源于哔哩哔哩会员购，由于API返回结果与实际存在差异，数据可能不准确。"""
 __author__ = "Asankilp"
 __plugin_meta__ = PluginMetadata(
     name="漫展/展览查询",
@@ -25,7 +27,8 @@ __plugin_meta__ = PluginMetadata(
     config=ConfigModel,
     homepage="https://github.com/LiteyukiStudio/nonebot-plugin-acgnshow",
     supported_adapters=inherit_supported_adapters("nonebot_plugin_alconna"),
-    extra={"License":"MIT","Author":"Swankily"}
+    #extra={"License":"MIT","Author":"Swankily"} snowykami的奇妙纠错（
+    extra={"License":"MIT","Author":"Asankilp"}
 )
 driver = get_driver()
 
