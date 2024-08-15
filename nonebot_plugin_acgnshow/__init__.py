@@ -25,7 +25,7 @@ __plugin_meta__ = PluginMetadata(
     config=ConfigModel,
     homepage="https://github.com/LiteyukiStudio/nonebot-plugin-acgnshow",
     supported_adapters=inherit_supported_adapters("nonebot_plugin_alconna"),
-    extra={"License":"MIT","Author":"Asankilp"}
+    extra={"License":"MIT","Author":"Swankily"}
 )
 driver = get_driver()
 
