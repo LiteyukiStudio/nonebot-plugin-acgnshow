@@ -4,9 +4,7 @@ version = "0.1.5"
 description = "Nonebot2插件，从哔哩哔哩会员购获取简易展览数据"
 readme = "README.md"
 requires-python = "<4.0,>=3.9"
-authors = [
-    { name = "Asankilp", email = "asankilp@outlook.com" },
-]
+authors = [{ name = "Asankilp", email = "asankilp@outlook.com" }]
 dependencies = [
     "nonebot2[fastapi, websockets]>=2.2.0",
     "nonebot-plugin-alconna>=0.48.0",
