@@ -101,7 +101,8 @@ def process_show_details_data_to_template(show_details_data: dict):
                 "price": ticket.get("price", 0),
                 "sale_start": convert_timestamp(ticket.get("saleStart", 0)),
                 "sale_end": convert_timestamp(ticket.get("saleEnd", 0)),
-                "status": ticket.get("sale_flag", {}).get("display_name", "")
+                "status": ticket.get("sale_flag", {}).get("display_name", ""),
+                "screen_name": ticket.get("screen_name")
             })
     guests_list = data["guests"]
     if guests_list != None:

@@ -26,10 +26,13 @@
         <div class="detail_content">
             <div class="details">
                 <div class="title">{{ show.name }}</div>
-                <div class="venue_name">地点：{{ show.venue_name }} {{show.venue_detail}}</div>
+                <div class="venue_name">地点：{{ show.venue_name }} {{ show.venue_detail }}</div>
                 <div class="start-time">开始时间：{{ show.start_time }}</div>
                 <div class="end-time">结束时间：{{ show.end_time }}</div>
                 <div class="organizer">主办方：{{ show.organizer }}</div>
+                {% if show.guests %}
+                <div class="guests">嘉宾：{{ show.guests }}</div>
+                {% endif %}
                 <div class="status">
                     {% macro icon(name) %}
                         <img src="./svg/{{ name }}.svg" class="vector_icon" width="8px" height="8px">
@@ -40,18 +43,27 @@
                     {% if show.id_bind == 1 %}
                         {{ icon('yes') }} 实名制 
                     {% endif %}
-                    {% if show.has_eticket == True %}
+                    {% if show.has_eticket %}
                         {{ icon('yes') }} 电子票/兑换票  
                     {% endif %}
                 </div>
                 <div class="placeholder"></div>
             </div>
         </div>
-        <div class="details">
-            {% for ticket in show.ticket_info %}
-            <div class="ticket_box">{{ ticket.description }} {{ ticket.sale_start }} -- {{ ticket.sale_end }} ￥{{ ticket.price / 100 }} ({{ ticket.status }})</div>
-            {% endfor %}
+
+        <!-- 按 screen_name 分组的票务信息 -->
+        {% for screen_name, tickets in show.ticket_info | groupby('screen_name') %}
+        <div class="screen_name_group">
+            <h3>{{ screen_name }}</h3>
+            <div class="details">
+                {% for ticket in tickets %}
+                <div class="ticket_box">
+                    {{ ticket.description }} {{ ticket.sale_start }} -- {{ ticket.sale_end }} ￥{{ ticket.price / 100 }} ({{ ticket.status }})
+                </div>
+                {% endfor %}
+            </div>
         </div>
+        {% endfor %}
 
         <!-- 页脚 -->
         <div class="footer">
