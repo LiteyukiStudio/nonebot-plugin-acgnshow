@@ -1,6 +1,7 @@
 import os
 import random
 import datetime
+import json
 from pathlib import Path
 from .config import config
 
@@ -20,3 +21,8 @@ def convert_timestamp(timestamp) -> str:
     将时间戳转换为日期格式
     """
     return datetime.datetime.fromtimestamp(timestamp).strftime("%Y-%m-%d %H:%M:%S")
+
+def extract_banner_url(value) -> str:
+    a = json.loads(value)
+    url = "https:"+a["banner"]["url"]
+    return url

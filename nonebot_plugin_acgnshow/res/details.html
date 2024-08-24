@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>展览信息</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <style>
+        body {
+            background-image: url("{{ bgimage }}");
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background"></div>
+    <div class="container">
+        <div class="header">展览信息</div>
+
+        <!-- Banner 图 -->
+        <div class="banner">
+            <img src="{{ show.banner_url }}" alt="Banner" style="width: 450px; height: 253px;" />
+        </div>
+
+        <!-- 单个展览内容 -->
+        <div class="detail_content">
+            <div class="details">
+                <div class="title">{{ show.name }}</div>
+                <div class="venue_name">地点：{{ show.venue_name }} {{show.venue_detail}}</div>
+                <div class="start-time">开始时间：{{ show.start_time }}</div>
+                <div class="end-time">结束时间：{{ show.end_time }}</div>
+                <div class="organizer">主办方：{{ show.organizer }}</div>
+                <div class="status">
+                    {% macro icon(name) %}
+                        <img src="./svg/{{ name }}.svg" class="vector_icon" width="8px" height="8px">
+                    {% endmacro %}
+                    {% if show.is_refund == 0 %}
+                        {{ icon('no') }} 不可退 
+                    {% endif %}
+                    {% if show.id_bind == 1 %}
+                        {{ icon('yes') }} 实名制 
+                    {% endif %}
+                    {% if show.has_eticket == True %}
+                        {{ icon('yes') }} 电子票/兑换票  
+                    {% endif %}
+                </div>
+                <div class="placeholder"></div>
+            </div>
+        </div>
+        <div class="details">
+            {% for ticket in show.ticket_info %}
+            <div class="ticket_box">{{ ticket.description }} {{ ticket.sale_start }} -- {{ ticket.sale_end }} ￥{{ ticket.price / 100 }} ({{ ticket.status }})</div>
+            {% endfor %}
+        </div>
+
+        <!-- 页脚 -->
+        <div class="footer">
+            <div class="designer">Designed by Asankilp?</div>
+            <div class="project_name">nonebot-plugin-acgnshow</div>
+            <div class="notice_text">本页信息仅供参考，具体内容请访问展览官方详情页，并自行检索实际信息</div>
+        </div>
+    </div>
+</body>
+
+</html>

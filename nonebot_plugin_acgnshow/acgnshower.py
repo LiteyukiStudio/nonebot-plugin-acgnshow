@@ -7,7 +7,7 @@ from nonebot_plugin_htmlrender import template_to_pic
 from nonebot_plugin_alconna import on_alconna
 from nonebot_plugin_alconna.uniseg import UniMessage
 from arclet.alconna import Alconna, Args
-from .config import RES_PATH, TEMPLATE_NAME, config
+from .config import RES_PATH, LIST_TEMPLATE_NAME, DETAILS_TEMPLATE_NAME, config
 from .util import *
 from .__init__ import __plugin_meta__
 
@@ -25,16 +25,51 @@ showcmd.shortcut(
         "args": ["{region}", "{page}", "{date}"],
     },
 )
+showcmd_details = on_alconna(
+    Alconna(
+        "展览详情",
+        Args["id?", int],  # 这里定义了一个必需的 int 参数 "id"
+    )
+)
+showcmd_details.shortcut(
+    r"展览详情\s*(?P<id>\d+)",  # 正则表达式匹配 "展览详情" 后跟一个整数 ID
+    {
+        "prefix": True,
+        "command": "展览详情",
+        "args": ["{id}"],  # 将 ID 参数传递给命令
+    },
+)
 
+@showcmd_details.handle()
+async def get_show_details_cmd(
+    id: Optional[int] = None
+):
+    show_details = await get_show_details(id)
+    if show_details["errno"] != 0: await UniMessage("发生错误").send() ; return
+    try:
+        show_details_data = process_show_details_data_to_template(show_details)
+        print(show_details_data)
+        template = {
+            "show": show_details_data,
+            "bgimage": choose_random_bgimage(),
+        }
+        pic = await template_to_pic(str(RES_PATH), DETAILS_TEMPLATE_NAME, template)
+    except Exception as e:
+        await UniMessage(f"图片生成时产生错误:\n{str(e)}").send()
+        traceback.print_exc()
+        return
+    await UniMessage.image(raw=pic).send()
 
 @showcmd.handle()
-async def find_show(
+async def find_shows_cmd(
     region: Optional[str] = None,
     page: Optional[int] = None,
     date: Optional[str] = None,
 ):
     if not region:
         await UniMessage(__plugin_meta__.usage).send()
+        return
+    if len(region) > 5:
         return
     if not page:
         page = 1
@@ -55,9 +90,9 @@ async def find_show(
             "bgimage": choose_random_bgimage(),
             "global_data": shows_data[1],
         }
-        pic = await template_to_pic(str(RES_PATH), TEMPLATE_NAME, template)
+        pic = await template_to_pic(str(RES_PATH), LIST_TEMPLATE_NAME, template)
     except Exception as e:
-        await UniMessage("图片生成时产生未知错误").send()
+        await UniMessage(f"图片生成时产生错误:\n{str(e)}").send()
         traceback.print_exc()
         return
 

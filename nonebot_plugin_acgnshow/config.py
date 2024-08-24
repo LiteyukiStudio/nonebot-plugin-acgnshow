@@ -3,7 +3,8 @@ from pydantic import BaseModel
 from nonebot import get_plugin_config
 
 RES_PATH = Path(__file__).parent / "res"
-TEMPLATE_NAME = "template.html"
+LIST_TEMPLATE_NAME = "template.html"
+DETAILS_TEMPLATE_NAME = "details.html"
 BGIMAGE_PATH = RES_PATH / "bgimage"
 
 

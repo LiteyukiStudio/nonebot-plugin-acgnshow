@@ -7,6 +7,7 @@ from .util import *
 
 CITY_API_ROOT = "https://show.bilibili.com/api/ticket/city/list?channel=3"
 SHOWS_API_ROOT = "https://show.bilibili.com/api/ticket/project/listV2"
+SHOW_DETAILS_API_ROOT = "https://show.bilibili.com/api/ticket/project/getV2"
 HEADERS = {
     "user-agent": "Mozilla/5.0 (Linux; Android 14; 114514YAJU Build/UKQ1.114514.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/125.0.6422.165 Mobile Safari/537.36 BiliApp/7810200 mobi_app/android isNotchWindow/0 NotchHeight=34 mallVersion/7810200 mVersion/242 disable_rcmd/0 7.81.0 os/android model/114514YAJU mobi_app/android build/7810200 channel/bilih5 innerVer/7810210 osVer/14 network/2"
 }
@@ -57,28 +58,74 @@ async def get_shows_data(region_id: int, page=1, pagesize=20):
             shows_data = await resp.json()
     return shows_data
 
+async def get_show_details(show_id: int):
+    param = {
+        "id": show_id,
+        "project_id": show_id,
+        "requestSource": "neul-next"
+    }
+    async with ClientSession() as session:
+        async with session.get(SHOW_DETAILS_API_ROOT, headers=HEADERS, params=param) as resp:
+            show_details_data = await resp.json()
+    return show_details_data
 
-# def process_shows_data_to_text(shows_data: dict):
-#     showlist = []
-#     data = shows_data["data"]
-#     total_pages = data["numPages"]
-#     result = data["result"]
-#     for i in result:
-#         name = i["project_name"]
-#         venue_name = i["venue_name"]
-#         project_id = i["project_id"]
-#         sale_flag = i["sale_flag"]
-#         # start_time = i["start_time"]
-#         start_unix = i["start_unix"]
-#         start_time = convert_timestamp(start_unix)
-#         end_time = i["end_time"]
-#         price_low = i["price_low"] / 100
-#         price_high = i["price_high"] / 100
-#         district_name = i["district_name"]
-#         text = f"名称：{name}\n举办地:{venue_name}\nid:{project_id}\nflag:{sale_flag}\n开始时间:{start_time}\n结束时间:{end_time}\n最低票价:{price_low}\n最高票价:{price_high}\n区名:{district_name}\n\n"
-#         showlist.append(text)
-#     return showlist
+def process_show_details_data_to_template(show_details_data: dict):
+    data = show_details_data["data"]
+    
+    banner_url = "https:"+data["banner"]
+    # banner_url = extract_banner_url(data["performance_image"])
+    
+    # 提取事件基本信息
+    name = data["name"]
+    start_time = convert_timestamp(data["start_time"])
+    end_time = convert_timestamp(data["end_time"])
+    
+    # 提取场馆信息
+    venue_name = data["venue_info"]["name"]
+    venue_detail = data["venue_info"]["address_detail"]
+    
+    # 提取主办方信息
+    organizer = data["merchant"]["company"]
+    
+    # 提取实名制，退票等信息
+    is_refund = data["is_refund"]
+    id_bind = data["id_bind"]
+    has_eticket = data["has_eticket"]
 
+    # 提取票务信息
+    ticket_info = []
+    for screen in data.get("screen_list", []):
+        for ticket in screen.get("ticket_list", []):
+            ticket_info.append({
+                "description": ticket.get("desc", ""),
+                "price": ticket.get("price", 0),
+                "sale_start": convert_timestamp(ticket.get("saleStart", 0)),
+                "sale_end": convert_timestamp(ticket.get("saleEnd", 0)),
+                "status": ticket.get("sale_flag", {}).get("display_name", "")
+            })
+    guests_list = data["guests"]
+    if guests_list != None:
+        guests = "、".join(n["name"] for n in guests_list)
+    else:
+        guests = ""
+    
+    # 构建返回的字典
+    item_dict = {
+        "banner_url": banner_url,
+        "name": name,
+        "start_time": start_time,
+        "end_time": end_time,
+        "venue_name": venue_name,
+        "venue_detail": venue_detail,
+        "organizer": organizer,
+        "ticket_info": ticket_info,
+        "guests": guests,
+        "is_refund": is_refund,
+        "id_bind": id_bind,
+        "has_eticket": has_eticket
+    }
+    
+    return item_dict
 
 def process_shows_data_to_template(shows_data: dict):
     showlist = []
