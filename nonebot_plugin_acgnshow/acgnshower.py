@@ -20,36 +20,44 @@ showcmd = on_alconna(
 showcmd.shortcut(
     r"(?P<region>.+?)展览\s*(?P<page>\d+)?\s*(?P<date>.+)?",
     {
-            "prefix" : True,
-            "command": "展览",
-            "args"   : ["{region}", "{page}", "{date}"],
-    }
+        "prefix": True,
+        "command": "展览",
+        "args": ["{region}", "{page}", "{date}"],
+    },
 )
 
 
 @showcmd.handle()
 async def find_show(
-        region: Optional[str] = None, page: Optional[int] = None, date: Optional[str] = None,
+    region: Optional[str] = None,
+    page: Optional[int] = None,
+    date: Optional[str] = None,
 ):
-    if not region: await UniMessage(__plugin_meta__.usage).send(); return
-    if not page: page = 1
-    if not date: date = ""
+    if not region:
+        await UniMessage(__plugin_meta__.usage).send()
+        return
+    if not page:
+        page = 1
+    if not date:
+        date = ""
     regions_dict = await get_regions_dict()
     regionid = regions_dict.get(region, None)
-    if regionid == None: await UniMessage("不支持此地区").send(); return
+    if regionid == None:
+        await UniMessage("地区未寻得或输入格式错误").send()
+        return
     # await showcmd.send("日期："+ date)
     shows = await get_shows_data(regionid, page=page, pagesize=config.acgnshow_pagesize)
     # print(shows)
     try:
         shows_data = process_shows_data_to_template(shows)
         template = {
-                "shows"      : shows_data[0],
-                "bgimage"    : choose_random_bgimage(),
-                "global_data": shows_data[1]
+            "shows": shows_data[0],
+            "bgimage": choose_random_bgimage(),
+            "global_data": shows_data[1],
         }
-        pic = await template_to_pic(RES_PATH, TEMPLATE_NAME, template)
+        pic = await template_to_pic(str(RES_PATH), TEMPLATE_NAME, template)
     except Exception as e:
-        await UniMessage("发生错误").send()
+        await UniMessage("图片生成时产生未知错误").send()
         traceback.print_exc()
         return
 

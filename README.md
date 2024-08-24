@@ -10,7 +10,6 @@
 
 _✨ 从哔哩哔哩会员购获取展览简易信息 ✨_
 
-
 <a href="./LICENSE">
     <img src="https://img.shields.io/github/license/LiteyukiStudio/nonebot-plugin-acgnshow.svg" alt="license">
 </a>
@@ -20,7 +19,6 @@ _✨ 从哔哩哔哩会员购获取展览简易信息 ✨_
 <img src="https://img.shields.io/badge/python-3.9+-blue.svg" alt="python">
 
 </div>
-
 
 ## 📖 介绍
 
@@ -44,21 +42,25 @@ _✨ 从哔哩哔哩会员购获取展览简易信息 ✨_
 <summary>pip</summary>
 
     pip install nonebot-plugin-acgnshow
+
 </details>
 <details>
 <summary>pdm</summary>
 
     pdm add nonebot-plugin-acgnshow
+
 </details>
 <details>
 <summary>poetry</summary>
 
     poetry add nonebot-plugin-acgnshow
+
 </details>
 <details>
 <summary>conda</summary>
 
     conda install nonebot-plugin-acgnshow
+
 </details>
 
 打开 nonebot2 项目根目录下的 `pyproject.toml` 文件, 在 `[tool.nonebot]` 部分追加写入
@@ -67,13 +69,14 @@ _✨ 从哔哩哔哩会员购获取展览简易信息 ✨_
 
 </details>
 
-## 🎉 使用  
+## 🎉 使用
+
 发送`展览`指令可以获取使用说明
+
 ## ⚙️ 配置
 
 在 nonebot2 项目的`.env`文件中添加下表中的配置
 
-| 配置项 | 必填 | 默认值 | 说明 |
-|:-----:|:----:|:----:|:----:|
-| ACGNSHOW_PAGESIZE | 否 | 8 | 单个图片的条目数，最大为20，条目数过大可能导致 Bot 无法发送 |
-
+|      配置项       | 必填 | 默认值 |                             说明                             |
+| :---------------: | :--: | :----: | :----------------------------------------------------------: |
+| ACGNSHOW_PAGESIZE |  否  |   8    | 单个图片的条目数，最大为 20，条目数过大可能导致 Bot 无法发送 |

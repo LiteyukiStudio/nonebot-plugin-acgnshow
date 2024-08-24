@@ -17,6 +17,7 @@ class City(BaseModel):
     """
     热门城市
     """
+
     id: int
     type: int
     first_letter: str
@@ -31,6 +32,7 @@ class CityDataList(BaseModel):
     """
     城市首字母
     """
+
     letter: str
     city_list: List[City]
 
@@ -39,6 +41,7 @@ class CityData(BaseModel):
     """
     城市数据
     """
+
     hot: List[City]
     list: List[CityDataList]
     located_id: int
@@ -48,6 +51,7 @@ class CityResp(BaseModel):
     """
     城市数据
     """
+
     errno: int
     errtag: int
     msg: str

@@ -9,7 +9,7 @@ from .util import *
 CITY_API_ROOT = "https://show.bilibili.com/api/ticket/city/list?channel=3"
 SHOWS_API_ROOT = "https://show.bilibili.com/api/ticket/project/listV2"
 HEADERS = {
-        "user-agent": "Mozilla/5.0 (Linux; Android 14; 114514YAJU Build/UKQ1.114514.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/125.0.6422.165 Mobile Safari/537.36 BiliApp/7810200 mobi_app/android isNotchWindow/0 NotchHeight=34 mallVersion/7810200 mVersion/242 disable_rcmd/0 7.81.0 os/android model/114514YAJU mobi_app/android build/7810200 channel/bilih5 innerVer/7810210 osVer/14 network/2"
+    "user-agent": "Mozilla/5.0 (Linux; Android 14; 114514YAJU Build/UKQ1.114514.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/125.0.6422.165 Mobile Safari/537.36 BiliApp/7810200 mobi_app/android isNotchWindow/0 NotchHeight=34 mallVersion/7810200 mVersion/242 disable_rcmd/0 7.81.0 os/android model/114514YAJU mobi_app/android build/7810200 channel/bilih5 innerVer/7810210 osVer/14 network/2"
 }
 
 
@@ -31,13 +31,8 @@ async def get_regions_dict() -> Dict[str, int]:
     city_data = await get_cities_data()
     for i in city_data.data.list:
         for j in i.city_list:
-            data.update({
-                    j.name: j.id
-            })
-    data.update({
-            "全国": -1,
-            "海外": 900000
-    })
+            data.update({j.name: j.id})
+    data.update({"全国": -1, "海外": 900000})
     return data
 
 
@@ -50,13 +45,13 @@ async def get_shows_data(region_id: int, page=1, pagesize=20):
         pagesize: 一页最大条目数，最大20
     """
     param = {
-            "version" : 133,
-            "area"    : region_id,
-            "page"    : page,
-            "pagesize": pagesize,
-            "platform": "web",
-            "p_type"  : "展览",
-            "style"   : 1
+        "version": 133,
+        "area": region_id,
+        "page": page,
+        "pagesize": pagesize,
+        "platform": "web",
+        "p_type": "展览",
+        "style": 1,
     }
     async with ClientSession() as session:
         async with session.get(SHOWS_API_ROOT, headers=HEADERS, params=param) as resp:
@@ -108,30 +103,31 @@ def process_shows_data_to_template(shows_data: dict):
         district_name = i["district_name"]
         wish = i["wish"]
         cover = "https:" + i["cover"]
-        if district_name == None: district_name = ""
+        if district_name == None:
+            district_name = ""
         guests_list = i["guests"]
-        guests = ""
         if guests_list != None:
-            for n in guests_list:
-                guests += n["name"] + ","
+            guests = "、".join(n["name"] for n in guests_list)
+        else:
+            guests = ""
         item_dict = {
-                "name"       : name,
-                "location"   : district_name + venue_name,
-                "sale_flag"  : sale_flag,
-                "id"         : project_id,
-                "price"      : price_low,
-                "start_time" : start_time,
-                "end_time"   : end_time,
-                "wish"       : wish,
-                "image_url"  : cover,
-                "guests"     : guests,
-                "page"       : page,
-                "total_pages": total_pages
+            "name": name,
+            "location": district_name + venue_name,
+            "sale_flag": sale_flag,
+            "id": project_id,
+            "price": price_low,
+            "start_time": start_time,
+            "end_time": end_time,
+            "wish": wish,
+            "image_url": cover,
+            "guests": guests,
+            "page": page,
+            "total_pages": total_pages,
         }
         showlist.append(item_dict)
     global_data_dict = {
-            "page"         : page,
-            "total_pages"  : total_pages,
-            "total_results": total_results
+        "page": page,
+        "total_pages": total_pages,
+        "total_results": total_results,
     }
     return [showlist, global_data_dict]

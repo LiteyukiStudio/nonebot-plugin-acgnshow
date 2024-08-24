@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Show Information</title>
     <style>
         @font-face {
-            font-family: 'Source Han Sans';
-            src: url('SourceHanSans.otf') format('opentype');
+            font-family: "Source Han Sans";
+            src: url("SourceHanSans.otf") format("opentype");
         }
+
         body {
-            font-family: 'Source Han Sans', sans-serif;
-            background-image: url('{{ bgimage }}');
+            font-family: "Source Han Sans", sans-serif;
+            background-image: url("{{ bgimage }}");
         }
+
         .background {
             position: fixed;
             top: 0;
@@ -22,14 +25,17 @@
             filter: blur(40%);
             z-index: -1;
         }
+
         .container {
             width: 98%;
             margin: 1%;
             border: 1px solid #fff;
             padding: 10px;
             box-sizing: border-box;
-            background-color: rgba(255, 255, 255, 0.8); /* 半透明白色背景 */
+            background-color: rgba(255, 255, 255, 0.8);
+            /* 半透明白色背景 */
         }
+
         .header {
             border: 1px solid black;
             padding: 5px;
@@ -38,6 +44,7 @@
             font-size: 10px;
             font-weight: bold;
         }
+
         .content {
             display: flex;
             border: 1px solid black;
@@ -46,13 +53,15 @@
             position: relative;
             box-sizing: border-box;
         }
+
         .image {
-            width: 148px;
-            height: 200px;
-            border: 1px solid black;
+            width: 149px;
+            height: 201px;
+            border: 1px solid rgba(128, 64, 128, 0.5);
             text-align: center;
             box-sizing: border-box;
         }
+
         .details {
             flex: 1;
             padding-left: 10px;
@@ -62,26 +71,32 @@
             position: relative;
             font-size: 10px;
         }
+
         .details .title {
             font-size: 10px;
             font-weight: bold;
             margin-bottom: 5px;
         }
+
         .details .venue_name {
             font-size: 10px;
             font-weight: normal;
             margin-bottom: 5px;
         }
+
         .details .guests {
             font-size: 10px;
             word-wrap: break-word;
-            white-space: pre-wrap; /* 自动换行 */
+            white-space: pre-wrap;
+            /* 自动换行 */
             margin-bottom: 5px;
         }
+
         .details .placeholder {
             font-size: 10px;
             margin-bottom: 5px;
         }
+
         .details .sale_flag {
             color: red;
             font-size: 10px;
@@ -89,6 +104,7 @@
             top: 5px;
             right: 5px;
         }
+
         .details .id {
             color: black;
             font-size: 10px;
@@ -96,34 +112,40 @@
             top: 20px;
             right: 5px;
         }
+
         .details .price {
-            color: #FB7299;
+            color: #fb7299;
             font-size: 10px;
             font-weight: bold;
             position: absolute;
             bottom: 5px;
             left: 5px;
         }
+
         .details .wish {
             color: gray;
             position: absolute;
             bottom: 5px;
             left: 60px;
         }
+
         .details .start-time,
         .details .end-time {
             font-size: 10px;
         }
+
         .details .start-time {
             position: absolute;
             bottom: 20px;
             right: 5px;
         }
+
         .details .end-time {
             position: absolute;
             bottom: 5px;
             right: 5px;
         }
+
         .footer {
             border: 1px solid black;
             flex: 1;
@@ -134,40 +156,53 @@
             position: relative;
             font-size: 10px;
         }
+
         .footer .designer {
             text-align: center;
             font-weight: bold;
+            font-size: 10px;
             padding: 5px;
             margin-bottom: 10px;
             margin-top: 10px;
         }
+
         .footer .pages {
             position: absolute;
             bottom: 5px;
             right: 5px;
             font-size: 10px;
         }
+
         .footer .total_results {
             position: absolute;
             bottom: 5px;
             left: 5px;
             font-size: 10px;
         }
+
         .footer .project_name {
             position: relative;
             font-size: 10px;
             text-align: center;
             color: rgb(50, 227, 227);
         }
+
+        .footer .notice_text {
+            position: relative;
+            font-size: 8px;
+            text-align: center;
+            color: slateblue;
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">展览信息</div>
         {% for show in shows %}
         <div class="content">
             <div class="image">
-                <img src="{{ show.image_url }}" alt="Image" width="148" height="200">
+                <img src="{{ show.image_url }}" alt="Image" width="147px" height="199px" />
             </div>
             <div class="details">
                 <div class="title">{{ show.name }}</div>
@@ -186,11 +221,17 @@
         </div>
         {% endfor %}
         <div class="footer">
-            <div class="designer"> Designed by Asankilp? </div>
-            <div class="total_results">共 {{ global_data.total_results }} 个结果</div>
-            <div class="pages">{{ global_data.page }} / {{ global_data.total_pages }} 页</div>
+            <div class="designer">Designed by Asankilp?</div>
+            <div class="total_results">
+                共 {{ global_data.total_results }} 个结果
+            </div>
+            <div class="pages">
+                {{ global_data.page }} / {{ global_data.total_pages }} 页
+            </div>
             <div class="project_name">nonebot-plugin-acgnshow</div>
+            <div class="notice_text">本页信息仅供参考，具体内容请访问展览官方详情页，并自行检索实际信息</div>
         </div>
     </div>
 </body>
+
 </html>

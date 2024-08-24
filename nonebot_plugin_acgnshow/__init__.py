@@ -1,9 +1,11 @@
 from nonebot.plugin import PluginMetadata, inherit_supported_adapters, require
+
 require("nonebot_plugin_htmlrender")
 require("nonebot_plugin_alconna")
 from .acgnshower import *
 from nonebot import get_driver
 from .config import ConfigModel
+
 usage = """命令格式：
 展览 <地区> [页码]
 或
@@ -27,8 +29,8 @@ __plugin_meta__ = PluginMetadata(
     config=ConfigModel,
     homepage="https://github.com/LiteyukiStudio/nonebot-plugin-acgnshow",
     supported_adapters=inherit_supported_adapters("nonebot_plugin_alconna"),
-    #extra={"License":"MIT","Author":"Swankily"} snowykami的奇妙纠错（
-    extra={"License":"MIT","Author":"Asankilp"}
+    # extra={"License":"MIT","Author":"Swankily"} snowykami的奇妙纠错（
+    extra={"License": "MIT", "Author": "Asankilp"},
 )
 driver = get_driver()
 
@@ -36,4 +38,3 @@ driver = get_driver()
 @driver.on_startup
 async def _():
     pass
-
