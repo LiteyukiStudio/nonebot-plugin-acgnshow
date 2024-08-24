@@ -1,0 +1,142 @@
+@font-face {
+    font-family: "Source Han Sans";
+    src: url("SourceHanSans.otf") format("opentype");
+}
+
+body {
+    font-family: "Source Han Sans", sans-serif;
+}
+
+.container, .header, .content, .footer, .details, .image {
+    border: 1px solid black;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 98%;
+    margin: 1%;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.header, .designer {
+    text-align: center;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 5px;
+    margin: 10px 0;
+}
+
+.content {
+    display: flex;
+    margin-bottom: 10px;
+    padding: 5px;
+    position: relative;
+}
+
+.image {
+    width: 149px;
+    height: 201px;
+    border: 1px solid rgba(128, 64, 128, 0.5);
+    text-align: center;
+}
+
+.details {
+    flex: 1;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+    font-size: 10px;
+    position: relative;
+}
+
+.details .title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.details .venue_name,
+.details .guests,
+.details .placeholder,
+.details .price,
+.details .wish,
+.details .start-time,
+.details .end-time {
+    margin-bottom: 5px;
+}
+
+.details .sale_flag, 
+.details .id {
+    position: absolute;
+    font-size: 10px;
+}
+
+.details .sale_flag {
+    color: red;
+    top: 5px;
+    right: 5px;
+}
+
+.details .id {
+    top: 20px;
+    right: 5px;
+}
+
+.details .price {
+    color: #fb7299;
+    font-weight: bold;
+    bottom: 5px;
+    left: 5px;
+}
+
+.details .wish {
+    color: gray;
+    bottom: 5px;
+    left: 60px;
+}
+
+.details .start-time {
+    bottom: 20px;
+    right: 5px;
+}
+
+.details .end-time {
+    bottom: 5px;
+    right: 5px;
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 10px;
+    position: relative;
+}
+
+.footer .pages, 
+.footer .total_results {
+    position: absolute;
+    font-size: 10px;
+}
+
+.footer .pages {
+    bottom: 5px;
+    right: 5px;
+}
+
+.footer .total_results {
+    bottom: 5px;
+    left: 5px;
+}
+
+.footer .project_name {
+    font-size: 10px;
+    text-align: center;
+    color: rgb(50, 227, 227);
+}
+
+.footer .notice_text {
+    font-size: 8px;
+    text-align: center;
+    color: slateblue;
+}

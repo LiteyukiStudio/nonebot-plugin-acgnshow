@@ -9,6 +9,6 @@ BGIMAGE_PATH = RES_PATH / "bgimage"
 
 class ConfigModel(BaseModel):
     acgnshow_pagesize: int = 8
-
+    acgnshow_bgimage_path: str = BGIMAGE_PATH
 
 config: ConfigModel = get_plugin_config(ConfigModel)

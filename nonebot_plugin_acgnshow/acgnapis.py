@@ -1,4 +1,3 @@
-import json
 from typing import Dict
 
 from aiohttp import ClientSession
@@ -59,26 +58,26 @@ async def get_shows_data(region_id: int, page=1, pagesize=20):
     return shows_data
 
 
-def process_shows_data_to_text(shows_data: dict):
-    showlist = []
-    data = shows_data["data"]
-    total_pages = data["numPages"]
-    result = data["result"]
-    for i in result:
-        name = i["project_name"]
-        venue_name = i["venue_name"]
-        project_id = i["project_id"]
-        sale_flag = i["sale_flag"]
-        # start_time = i["start_time"]
-        start_unix = i["start_unix"]
-        start_time = convert_timestamp(start_unix)
-        end_time = i["end_time"]
-        price_low = i["price_low"] / 100
-        price_high = i["price_high"] / 100
-        district_name = i["district_name"]
-        text = f"名称：{name}\n举办地:{venue_name}\nid:{project_id}\nflag:{sale_flag}\n开始时间:{start_time}\n结束时间:{end_time}\n最低票价:{price_low}\n最高票价:{price_high}\n区名:{district_name}\n\n"
-        showlist.append(text)
-    return showlist
+# def process_shows_data_to_text(shows_data: dict):
+#     showlist = []
+#     data = shows_data["data"]
+#     total_pages = data["numPages"]
+#     result = data["result"]
+#     for i in result:
+#         name = i["project_name"]
+#         venue_name = i["venue_name"]
+#         project_id = i["project_id"]
+#         sale_flag = i["sale_flag"]
+#         # start_time = i["start_time"]
+#         start_unix = i["start_unix"]
+#         start_time = convert_timestamp(start_unix)
+#         end_time = i["end_time"]
+#         price_low = i["price_low"] / 100
+#         price_high = i["price_high"] / 100
+#         district_name = i["district_name"]
+#         text = f"名称：{name}\n举办地:{venue_name}\nid:{project_id}\nflag:{sale_flag}\n开始时间:{start_time}\n结束时间:{end_time}\n最低票价:{price_low}\n最高票价:{price_high}\n区名:{district_name}\n\n"
+#         showlist.append(text)
+#     return showlist
 
 
 def process_shows_data_to_template(shows_data: dict):
