@@ -1,6 +1,5 @@
 import traceback
 
-from nonebot.typing import T_State
 from typing import Optional
 from .acgnapis import *
 from nonebot_plugin_htmlrender import template_to_pic, html_to_pic

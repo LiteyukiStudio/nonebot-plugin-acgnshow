@@ -39,8 +39,10 @@
                     {% endmacro %}
                     {% if show.is_refund == 0 %}
                         {{ icon('no') }} 不可退 
+                    {% else %}
+                        {{ icon('yes') }} 支持退 
                     {% endif %}
-                    {% if show.id_bind == 1 %}
+                    {% if show.id_bind >= 1 %}
                         {{ icon('yes') }} 实名制 
                     {% endif %}
                     {% if show.has_eticket %}
