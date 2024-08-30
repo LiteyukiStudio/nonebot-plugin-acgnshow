@@ -110,6 +110,11 @@ def process_show_details_data_to_template(show_details_data: dict):
     else:
         guests = ""
     
+    desc = data["performance_desc"]["list"]
+    for item in desc:
+        if item.get("module") == "activity_content":
+            details_html = item.get("details", "")
+
     # 构建返回的字典
     item_dict = {
         "banner_url": banner_url,
@@ -123,10 +128,11 @@ def process_show_details_data_to_template(show_details_data: dict):
         "guests": guests,
         "is_refund": is_refund,
         "id_bind": id_bind,
-        "has_eticket": has_eticket
+        "has_eticket": has_eticket,
+        "details_html": details_html
     }
     
-    return item_dict
+    return [item_dict, details_html]
 
 def process_shows_data_to_template(shows_data: dict):
     showlist = []

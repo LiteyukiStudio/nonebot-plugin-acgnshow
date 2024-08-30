@@ -3,7 +3,7 @@ import traceback
 from nonebot.typing import T_State
 from typing import Optional
 from .acgnapis import *
-from nonebot_plugin_htmlrender import template_to_pic
+from nonebot_plugin_htmlrender import template_to_pic, html_to_pic
 from nonebot_plugin_alconna import on_alconna
 from nonebot_plugin_alconna.uniseg import UniMessage
 from arclet.alconna import Alconna, Args
@@ -48,9 +48,9 @@ async def get_show_details_cmd(
     if show_details["errno"] != 0: await UniMessage("发生错误").send() ; return
     try:
         show_details_data = process_show_details_data_to_template(show_details)
-        print(show_details_data)
+        #print(show_details_data)
         template = {
-            "show": show_details_data,
+            "show": show_details_data[0],
             "bgimage": choose_random_bgimage(),
         }
         pic = await template_to_pic(str(RES_PATH), DETAILS_TEMPLATE_NAME, template)
@@ -59,6 +59,15 @@ async def get_show_details_cmd(
         traceback.print_exc()
         return
     await UniMessage.image(raw=pic).send()
+    if config.acgnshow_send_show_details_html:
+        details_html_fragments = split_html_into_fragments(add_https_to_urls(show_details_data[1]))
+        details_html_groups = join_fragments_in_groups(details_html_fragments, config.acgnshow_show_details_html_img_count)
+        #print(details_html_groups)
+        #print(details_html)
+        for html in details_html_groups:
+            html_pic = await html_to_pic(html=html, device_scale_factor=config.acgnshow_show_details_html_scale)
+            #print(html_pic)
+            await UniMessage.image(raw=html_pic).send()
 
 @showcmd.handle()
 async def find_shows_cmd(
