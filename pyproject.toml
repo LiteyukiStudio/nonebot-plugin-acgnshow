@@ -1,6 +1,6 @@
 [project]
 name = "nonebot-plugin-acgnshow"
-version = "0.2.3.1"
+version = "0.2.3.2"
 description = "Nonebot2插件，从哔哩哔哩会员购获取简易展览数据"
 readme = "README.md"
 requires-python = "<4.0,>=3.9"

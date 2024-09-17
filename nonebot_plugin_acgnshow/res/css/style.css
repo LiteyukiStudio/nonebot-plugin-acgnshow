@@ -145,7 +145,7 @@ body {
     color: gray;
     position: absolute;
     bottom: 5px;
-    left: 60px; /* 适当调整以避免与price重叠 */
+    left: 80px; /* 适当调整以避免与price重叠 */
 }
 
 .details .start-time {
