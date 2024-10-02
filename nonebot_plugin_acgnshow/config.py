@@ -9,7 +9,7 @@ BGIMAGE_PATH = RES_PATH / "bgimage"
 
 
 class ConfigModel(BaseModel):
-    acgnshow_pagesize: int = 8
+    acgnshow_pagesize: int = 10
     acgnshow_bgimage_path: str = BGIMAGE_PATH
     acgnshow_send_show_details_html: bool = False
     acgnshow_show_details_html_scale: float = 0.6
