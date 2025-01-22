@@ -22,13 +22,13 @@ body {
     width: 98%;
     margin: 1%;
     padding: 10px;
-    border: 1px solid #fff;
+    border: 1px solid rgba(255, 255, 255, 0.5);
     box-sizing: border-box;
-    background-color: rgba(255, 255, 255, 0.8); /* 半透明白色背景 */
+    background-color: rgba(255, 255, 255, 0.5); /* 半透明白色背景 */
 }
 
 .header {
-    border: 1px solid black;
+    border: 1px solid rgba(0, 0, 0, 0.45);
     padding: 5px;
     margin-bottom: 10px;
     text-align: center;
@@ -38,21 +38,12 @@ body {
 
 .content {
     display: flex;
-    border: 1px solid black;
+    border: 1px solid rgba(0, 0, 0, 0.5);
     margin-bottom: 10px;
     padding: 5px;
     position: relative;
     box-sizing: border-box;
-}
-
-.detail_content {
-    display: flex;
-    border: 1px solid black;
-    height: 201px;
-    margin-bottom: 10px;
-    padding: 5px;
-    position: relative;
-    box-sizing: border-box;
+    background-color: rgba(183, 207, 255, 0.25); /* 半透明白色背景 */
 }
 
 .image {
@@ -63,48 +54,19 @@ body {
     box-sizing: border-box;
 }
 
-.vector_icon {
-    width: 20px;
-    height: 20px;
-    vertical-align: bottom;
-    margin-left: 5px;
-}
-
-.banner {
-    margin-bottom: 15px;
-    border: 2px solid #000; /* 为 banner 添加边框 */
-    display: flex;
-    justify-content: center; /* 居中对齐图片 */
-    align-items: center; /* 垂直居中对齐图片 */
-}
-
-.banner img {
-    width: 450px;
-    height: 253px;
-}
-
-.details .ticket_box {
-    display: inline-block; /* 根据内容的宽度自动调整 */
-    background-color: rgba(255, 255, 255, 0.1); /* 半透明白色背景 */
-    border-radius: 15px; /* 圆角半径 */
-    padding: 20px; /* 内边距 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 添加阴影以增强视觉效果 */
-    text-align: center; /* 内容水平居中 */
-    width: auto; /* 根据内容宽度自动调整 */
-}
-
 .details {
     flex: 1;
     padding-left: 10px;
     display: flex;
     flex-direction: column;
     position: relative; /* 使子元素绝对定位相对于这个父元素 */
-    font-size: 10px;
+    font-size: 12px;
 }
 
 .details .title {
     font-weight: bold; /* 加粗字体 */
     margin-bottom: 5px;
+    font-size: 13px;
 }
 
 .details .venue_name,
@@ -116,14 +78,14 @@ body {
 .details .sale_flag {
     color: red;
     position: absolute;
-    top: 5px;
+    top: 15px;
     right: 5px;
 }
 
 .details .id {
     color: black;
     position: absolute;
-    top: 20px;
+    top: 30px;
     right: 5px;
 }
 
@@ -135,33 +97,31 @@ body {
     left: 5px;
 }
 
-.details .status {
-    position: absolute;
-    display: flex;
-    bottom: 5px;
-}
-
 .details .wish {
     color: gray;
     position: absolute;
     bottom: 5px;
-    left: 80px; /* 适当调整以避免与price重叠 */
+    left: 90px; /* 适当调整以避免与price重叠 */
+    font-size: 10px;
 }
 
 .details .start-time {
     position: absolute;
     bottom: 20px; /* 与end-time有一定的高度差异 */
     right: 5px;
+    font-size: 10px;
 }
 
 .details .end-time {
     position: absolute;
     bottom: 5px;
     right: 5px;
+    font-size: 10px;
 }
 
 .footer {
-    border: 1px solid black;
+    margin-top: 15px;
+    border: 1px solid rgb(0, 0, 0, 0.25);
     flex: 1;
     padding-left: 10px;
     display: flex;
@@ -179,15 +139,10 @@ body {
     margin: 10px 0;
 }
 
-.footer .pages,
-.footer .total_results {
+.footer .total_results,
+.footer .pages {
     position: absolute;
     font-size: 10px;
-}
-
-.footer .pages {
-    bottom: 5px;
-    right: 5px;
 }
 
 .footer .total_results {
@@ -195,14 +150,19 @@ body {
     left: 5px;
 }
 
+.footer .pages {
+    bottom: 5px;
+    right: 5px;
+}
+
 .footer .project_name {
     font-size: 10px;
     text-align: center;
-    color: rgb(50, 227, 227);
+    color: rgb(34, 154, 154);
 }
 
 .footer .notice_text {
     font-size: 8px;
     text-align: center;
-    color: slateblue;
+    color: rgb(81, 69, 159);
 }

@@ -39,15 +39,19 @@ showcmd_details.shortcut(
     },
 )
 
+
 @showcmd_details.handle()
-async def get_show_details_cmd(
-    id: Optional[int] = None
-):
+async def get_show_details_cmd(id: Optional[int] = None):
+    if not id:
+        await UniMessage("请输入展览ID").send()
+        return
     show_details = await get_show_details(id)
-    if show_details["errno"] != 0: await UniMessage("发生错误").send() ; return
+    if show_details["errno"] != 0:
+        await UniMessage("发生{}号错误".format(show_details["errno"])).send()
+        return
     try:
         show_details_data = process_show_details_data_to_template(show_details)
-        #print(show_details_data)
+        # print(show_details_data)
         template = {
             "show": show_details_data[0],
             "bgimage": choose_random_bgimage(),
@@ -59,14 +63,21 @@ async def get_show_details_cmd(
         return
     await UniMessage.image(raw=pic).send()
     if config.acgnshow_send_show_details_html:
-        details_html_fragments = split_html_into_fragments(add_https_to_urls(show_details_data[1]))
-        details_html_groups = join_fragments_in_groups(details_html_fragments, config.acgnshow_show_details_html_img_count)
-        #print(details_html_groups)
-        #print(details_html)
+        details_html_fragments = split_html_into_fragments(
+            add_https_to_urls(show_details_data[1])
+        )
+        details_html_groups = join_fragments_in_groups(
+            details_html_fragments, config.acgnshow_show_details_html_img_count
+        )
+        # print(details_html_groups)
+        # print(details_html)
         for html in details_html_groups:
-            html_pic = await html_to_pic(html=html, device_scale_factor=config.acgnshow_show_details_html_scale)
-            #print(html_pic)
+            html_pic = await html_to_pic(
+                html=html, device_scale_factor=config.acgnshow_show_details_html_scale
+            )
+            # print(html_pic)
             await UniMessage.image(raw=html_pic).send()
+
 
 @showcmd.handle()
 async def find_shows_cmd(

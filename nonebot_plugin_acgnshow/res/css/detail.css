@@ -1,0 +1,80 @@
+
+.detail_content {
+    display: flex;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    height: 201px;
+    margin-bottom: 10px;
+    padding: 5px;
+    position: relative;
+    box-sizing: border-box;
+    background-color: rgba(183, 207, 255, 0.5); /* 半透明白色背景 */
+}
+
+.vector_icon {
+    width: 20px;
+    height: 20px;
+    vertical-align: bottom;
+    margin-left: 5px;
+}
+
+.banner {
+    margin-bottom: 15px;
+    border: 2px solid rgba(0, 0, 0, 0.45); /* 为 banner 添加边框 */
+    display: flex;
+    justify-content: center; /* 居中对齐图片 */
+    align-items: center; /* 垂直居中对齐图片 */
+}
+
+.banner img {
+    width: 450px;
+    height: 253px;
+}
+
+.details .ticket_box {
+    display: inline-block; /* 根据内容的宽度自动调整 */
+    border: rgba(0, 0, 0, 0.15);
+    background-color: rgba(109, 146, 220, 0.15); /* 半透明蓝白色背景 */
+    /* border-radius: 15px; 圆角半径 谁允许你圆了 */
+    padding: 15px; /* 内边距 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 添加阴影以增强视觉效果 */
+    text-align: center; /* 内容水平居中 */
+    width: auto; /* 根据内容宽度自动调整 */
+    font-size: 10px;
+}
+
+.details {
+    flex: 1;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+    position: relative; /* 使子元素绝对定位相对于这个父元素 */
+    font-size: 12px;
+}
+
+.details .title {
+    font-weight: bold; /* 加粗字体 */
+    margin-bottom: 5px;
+    font-size: 20px;
+}
+
+
+.details .status {
+    position: absolute;
+    display: flex;
+    bottom: 5px;
+}
+
+.details .start-time {
+    position: absolute;
+    bottom: 20px; /* 与end-time有一定的高度差异 */
+    right: 5px;
+    font-size: 11px;
+}
+
+.details .end-time {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    font-size: 11px;
+}
+
