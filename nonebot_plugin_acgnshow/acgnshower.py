@@ -46,7 +46,7 @@ async def get_show_details_cmd(id: Optional[int] = None):
         await UniMessage("请输入展览ID").send()
         return
     show_details = await get_show_details(id)
-    if show_details["errno"] != 0:
+    if show_details["code"] != 0:
         await UniMessage("发生{}号错误".format(show_details["errno"])).send()
         return
     try:
