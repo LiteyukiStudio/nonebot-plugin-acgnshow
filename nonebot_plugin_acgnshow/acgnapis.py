@@ -1,5 +1,7 @@
 from typing import Dict
+from types import NoneType
 
+# from nonebot import logger
 from aiohttp import ClientSession
 
 from .models import *
@@ -71,8 +73,12 @@ async def get_show_details(show_id: int):
 
 def process_show_details_data_to_template(show_details_data: dict) -> tuple:
     data = show_details_data["data"]
-
-    banner_url = "https:" + data["banner"]
+    # logger.info("读取到漫展详情信息：{}".format(show_details_data))
+    banner_url = (
+        data["banner"]
+        if data["banner"].startswith("https:")
+        else ("https:" + data["banner"])
+    )
     # banner_url = extract_banner_url(data["performance_image"])
 
     # 提取事件基本信息
@@ -113,7 +119,7 @@ def process_show_details_data_to_template(show_details_data: dict) -> tuple:
         guests = ""
 
     desc = data["performance_desc"]["list"]
-    details_html = "" # 可能未绑定
+    details_html = ""  # 可能未绑定
     for item in desc:
         if item.get("module") == "activity_content":
             details_html = item.get("details", "")
@@ -139,6 +145,9 @@ def process_show_details_data_to_template(show_details_data: dict) -> tuple:
 
 
 def process_shows_data_to_template(shows_data: dict) -> tuple:
+
+    # logger.info("读取到展览列表信息：{}".format(shows_data))
+
     showlist = []
     data = shows_data["data"]
     page = data["page"]
@@ -159,14 +168,23 @@ def process_shows_data_to_template(shows_data: dict) -> tuple:
         price_high = i["price_high"] / 100
         district_name = i["district_name"]
         wish = i["wish"]
-        cover = "https:" + i["cover"]
+        cover = (
+            i["cover"] if i["cover"].startswith("https:") else ("https:" + i["cover"])
+        )
         if district_name == None:
             district_name = ""
         guests_list = i["guests"]
-        if guests_list != None:
-            guests = "、".join(n["name"] for n in guests_list)
+        if guests_list not in (None, NoneType):
+            try:
+                guests = "、".join(n["name"] for n in guests_list)
+            except TypeError as e:
+                guests = ""
         else:
             guests = ""
+        if "countdown" in i:
+            countdown = i["countdown"]
+        else:
+            countdown = ""
         item_dict = {
             "name": name,
             "location": district_name + venue_name,
@@ -174,6 +192,7 @@ def process_shows_data_to_template(shows_data: dict) -> tuple:
             "id": project_id,
             "price_low": price_low,
             "price_high": price_high,
+            "countdown": countdown,
             "start_time": start_time,
             "end_time": end_time,
             "wish": wish,

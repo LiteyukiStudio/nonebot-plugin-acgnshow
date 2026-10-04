@@ -105,6 +105,14 @@ body {
     font-size: 10px;
 }
 
+.details .count-down {
+    color: rgb(144, 0, 0);
+    position: absolute;
+    bottom: 35px; /* 与start-time有一定的高度差异 */
+    right: 5px;
+    font-size: 10px;
+}
+
 .details .start-time {
     position: absolute;
     bottom: 20px; /* 与end-time有一定的高度差异 */

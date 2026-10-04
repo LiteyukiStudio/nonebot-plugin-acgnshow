@@ -31,13 +31,16 @@
                 <div class="id">ID:{{ show.id }}</div>
                 <div class="price">￥{{ show.price_low }} - {{ show.price_high }}</div>
                 <div class="wish">{{ show.wish }}人想去</div>
+                {% if show.countdown != "" %}
+                <div class="count-down">{{ show.countdown }}</div>
+                {% endif %}
                 <div class="start-time">开始时间：{{ show.start_time }}</div>
                 <div class="end-time">结束时间：{{ show.end_time }}</div>
             </div>
         </div>
         {% endfor %}
         <div class="footer">
-            <div class="designer">Designed by Asankilp?</div>
+            <div class="designer">Designed by Asankilp</div>
             <div class="total_results">
                 共 {{ global_data.total_results }} 个结果
             </div>

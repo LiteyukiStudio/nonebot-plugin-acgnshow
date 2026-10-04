@@ -36,6 +36,9 @@ __plugin_meta__ = PluginMetadata(
 )
 driver = get_driver()
 
+# 此处版本声明仅供提示使用，希望不删
+# version
+# 2.3.3.1+ advanced
 
 @driver.on_startup
 async def _():

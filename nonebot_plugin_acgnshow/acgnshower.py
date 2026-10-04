@@ -46,8 +46,12 @@ async def get_show_details_cmd(id: Optional[int] = None):
         await UniMessage("请输入展览ID").send()
         return
     show_details = await get_show_details(id)
-    if show_details["code"] != 0:
-        await UniMessage("发生{}号错误".format(show_details["errno"])).send()
+    if show_details["code"] != 0:  # 这里错误处理是否应该换成 'success': false？
+        await UniMessage(
+            "发生{}号错误".format(show_details["errno"])
+            if "errno" in show_details
+            else "获取内容错误，消息为：{}".format(show_details)
+        ).send()
         return
     try:
         show_details_data = process_show_details_data_to_template(show_details)
